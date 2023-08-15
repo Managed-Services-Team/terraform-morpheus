@@ -11,7 +11,6 @@ provider "azurerm" {
     client_secret   = "${var.client_secret}"
     tenant_id       = "${var.tenant_id}"
 	# whilst the `version` attribute is optional, we recommend pinning to a given version of the Provider
-    version = ">2.0.0"
 }
 
 resource "azurerm_resource_group" "example" {
