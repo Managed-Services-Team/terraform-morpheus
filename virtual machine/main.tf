@@ -94,7 +94,7 @@ resource "azurerm_virtual_machine" "myterraformvm" {
     location            = "${var.location}"
     resource_group_name = "${azurerm_resource_group.thisrg.name}"
     network_interface_ids = ["${azurerm_network_interface.myterraformnic.id}"]
-    size               = "Standard_B4ms"
+    vm_size               = "Standard_B4ms"
     delete_os_disk_on_termination = "true"
     delete_data_disks_on_termination = "true"
 
