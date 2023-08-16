@@ -7,7 +7,6 @@ features {}
     client_secret   = "${var.client_secret}"
     tenant_id       = "${var.tenant_id}"
 	# whilst the `version` attribute is optional, we recommend pinning to a given version of the Provider
-    version = ">2.0.0"
 }
 
 
@@ -95,7 +94,7 @@ resource "azurerm_virtual_machine" "myterraformvm" {
     location            = "${var.location}"
     resource_group_name = "${azurerm_resource_group.thisrg.name}"
     network_interface_ids = ["${azurerm_network_interface.myterraformnic.id}"]
-    vm_size               = "Standard_B4ms"
+    size               = "Standard_B4ms"
     delete_os_disk_on_termination = "true"
     delete_data_disks_on_termination = "true"
 
