@@ -31,7 +31,6 @@ resource "azurerm_cosmosdb_account" "example" {
   resource_group_name       = azurerm_resource_group.example.name
   offer_type                = "Standard"
   kind                      = "GlobalDocumentDB"
-  enable_automatic_failover = true
 
   # Allow Azure services and Azure portal access
   ip_range_filter = ["0.0.0.0"]
