@@ -26,7 +26,7 @@ resource "random_integer" "ri" {
 
 # Cosmos DB Account
 resource "azurerm_cosmosdb_account" "example" {
-  name                      = "${var.prefix}-cosmosdb-${random_integer.ri.result}"
+  name                      = "${var.prefix}-cosmosdb-${random_integer.ri.result}-${var.cosmo_name}"
   location                  = azurerm_resource_group.example.location
   resource_group_name       = azurerm_resource_group.example.name
   offer_type                = "Standard"
