@@ -32,3 +32,8 @@ variable "client_secret" {
     type = string
     sensitive = true
 }
+
+variable "cosmo_name" {
+    type    = string
+    default = "example-cosmo-db"
+}
