@@ -14,7 +14,7 @@ provider "azurerm" {
     version = ">2.5.0"
 }
 resource "azurerm_subscription_template_deployment" "example" {
-  name             = "${var.asc_nam}"
+  name             = "${var.asc_name}"
   location         = "eastus"
   template_content = <<TEMPLATE
 {
