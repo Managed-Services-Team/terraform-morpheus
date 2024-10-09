@@ -20,5 +20,5 @@ variable "client_secret" {
 
 variable "asc_name" {
     type    = string
-    default = "example asc"
+    default = "example-asc"
 }
