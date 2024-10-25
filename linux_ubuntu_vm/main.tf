@@ -14,7 +14,7 @@ resource "random_string" "random" {
 }
 resource "azurerm_resource_group" "terra" {
   name     = "terra-resources-${random_string.random.result}"
-  location = "West Europe"
+  location = "East US"
 }
 resource "azurerm_virtual_network" "terra" {
   name                = "terra-network-${random_string.random.result}"
