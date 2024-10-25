@@ -12,35 +12,35 @@ resource "random_string" "random" {
   length  = 8
   special = false
 }
-resource "azurerm_resource_group" "example" {
-  name     = "example-resources-${random_string.random.result}"
+resource "azurerm_resource_group" "terra" {
+  name     = "terra-resources-${random_string.random.result}"
   location = "West Europe"
 }
-resource "azurerm_virtual_network" "example" {
-  name                = "example-network-${random_string.random.result}"
+resource "azurerm_virtual_network" "terra" {
+  name                = "terra-network-${random_string.random.result}"
   address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.terra.location
+  resource_group_name = azurerm_resource_group.terra.name
 }
-resource "azurerm_subnet" "example" {
+resource "azurerm_subnet" "terra" {
   name                 = "internal-${random_string.random.result}"
-  resource_group_name  = azurerm_resource_group.example.name
-  virtual_network_name = azurerm_virtual_network.example.name
+  resource_group_name  = azurerm_resource_group.terra.name
+  virtual_network_name = azurerm_virtual_network.terra.name
   address_prefixes     = ["10.0.2.0/24"]
 }
 # Public IP Address
-resource "azurerm_public_ip" "example" {
-  name                = "example-public-ip-${random_string.random.result}"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+resource "azurerm_public_ip" "terra" {
+  name                = "terra-public-ip-${random_string.random.result}"
+  location            = azurerm_resource_group.terra.location
+  resource_group_name = azurerm_resource_group.terra.name
   allocation_method   = "Static"
   sku                 = "Standard"
 }
 # Network Security Group (NSG) with SSH rule (port 22 open to the public)
-resource "azurerm_network_security_group" "example" {
-  name                = "example-nsg-${random_string.random.result}"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+resource "azurerm_network_security_group" "terra" {
+  name                = "terra-nsg-${random_string.random.result}"
+  location            = azurerm_resource_group.terra.location
+  resource_group_name = azurerm_resource_group.terra.name
   security_rule {
     name                       = "allow_ssh"
     priority                   = 1000
@@ -53,30 +53,30 @@ resource "azurerm_network_security_group" "example" {
     destination_address_prefix = "*"
   }
 }
-resource "azurerm_network_interface" "example" {
-  name                = "example-nic-${random_string.random.result}"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+resource "azurerm_network_interface" "terra" {
+  name                = "terra-nic-${random_string.random.result}"
+  location            = azurerm_resource_group.terra.location
+  resource_group_name = azurerm_resource_group.terra.name
   ip_configuration {
     name                          = "internal-${random_string.random.result}"
-    subnet_id                     = azurerm_subnet.example.id
+    subnet_id                     = azurerm_subnet.terra.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.example.id
+    public_ip_address_id          = azurerm_public_ip.terra.id
   }
 }
 # Associate NSG with NIC
 resource "azurerm_network_interface_security_group_association" "nic_nsg_assoc" {
-  network_interface_id      = azurerm_network_interface.example.id
-  network_security_group_id = azurerm_network_security_group.example.id
+  network_interface_id      = azurerm_network_interface.terra.id
+  network_security_group_id = azurerm_network_security_group.terra.id
 }
-resource "azurerm_linux_virtual_machine" "example" {
-  name                = "example-machine-${random_string.random.result}"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
+resource "azurerm_linux_virtual_machine" "terra" {
+  name                = "terra-machine-${random_string.random.result}"
+  resource_group_name = azurerm_resource_group.terra.name
+  location            = azurerm_resource_group.terra.location
   size                = "Standard_F2"
   admin_username      = "adminuser"
   network_interface_ids = [
-    azurerm_network_interface.example.id,
+    azurerm_network_interface.terra.id,
   ]
   admin_password = "P@ssw0rd123!" # Replace this with a strong password
   disable_password_authentication = false
